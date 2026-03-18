@@ -3,3 +3,7 @@ uvicorn
 pandas
 numpy
 pydantic
+scikit-learn
+xgboost
+shap
+scipy
