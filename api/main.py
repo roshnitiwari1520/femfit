@@ -1,5 +1,8 @@
+import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from api.schemas import UserInput, FemFitResult
 from ml.femfit_engine import (
     validate_inputs, bmr_standard, bmr_femfit,
@@ -105,9 +108,35 @@ def generate_insights(phase: str, fitness_label: str,
     return insights
 
 
+# ── Serve the frontend UI ──────────────────────────────────────────────────
+# Mount static assets — resolve relative to the project root (one level up from api/)
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+app.mount("/static", StaticFiles(directory=_ROOT), name="static")
+
+
 @app.get("/")
-def root():
-    return {"status": "FemFit API v2.0 running"}
+def index():
+    return FileResponse(os.path.join(_ROOT, "index.html"))
+
+
+@app.get("/results")
+def results():
+    return FileResponse(os.path.join(_ROOT, "results.html"))
+
+
+@app.get("/results.html")
+def results_html():
+    return FileResponse(os.path.join(_ROOT, "results.html"))
+
+
+@app.get("/style.css")
+def css():
+    return FileResponse(os.path.join(_ROOT, "style.css"), media_type="text/css")
+
+
+@app.get("/app.js")
+def js():
+    return FileResponse(os.path.join(_ROOT, "app.js"), media_type="application/javascript")
 
 
 @app.post("/calculate", response_model=FemFitResult)

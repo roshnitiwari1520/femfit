@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FemFit — Bias-corrected health metrics built for women. Enter your stats and discover what your wearable gets wrong." />
+  <title>FemFit — Health Metrics Built for Women</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💜</text></svg>" />
+</head>
+<body>
+
+  <!-- Background ambience -->
+  <div class="bg-ambience" aria-hidden="true"></div>
+
+  <div class="page-wrapper">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <a class="navbar-logo" href="index.html">
+        <div class="logo-icon">💜</div>
+        <span class="logo-text">FemFit</span>
+      </a>
+      <span class="navbar-tagline">Health metrics calibrated for female physiology</span>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero">
+      <div class="hero-badge">✨ Female-Calibrated Engine · NHANES 2017</div>
+      <h1 class="hero-title">
+        Your wearable thinks<br />
+        it knows you.<br />
+        <span class="gradient-text">It doesn't.</span>
+      </h1>
+      <p class="hero-subtitle">
+        FemFit corrects BMR, VO2 max, heart rate zones and calorie burn
+        using real female data, hormonal cycle awareness, and ML.
+      </p>
+    </header>
+
+    <!-- Form -->
+    <main class="form-container">
+      <form class="form-card" id="femfit-form" novalidate>
+
+        <!-- Section: Body Metrics -->
+        <p class="form-section-title">📊 Body Metrics</p>
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label class="form-label" for="age">
+              Age <span class="label-unit">(18 – 50)</span>
+            </label>
+            <input
+              class="form-input"
+              type="number"
+              id="age"
+              name="age"
+              placeholder="e.g. 27"
+              min="18" max="50"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="weight_kg">
+              Weight <span class="label-unit">kg</span>
+            </label>
+            <input
+              class="form-input"
+              type="number"
+              id="weight_kg"
+              name="weight_kg"
+              placeholder="e.g. 62"
+              min="30" max="200"
+              step="0.1"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="height_cm">
+              Height <span class="label-unit">cm</span>
+            </label>
+            <input
+              class="form-input"
+              type="number"
+              id="height_cm"
+              name="height_cm"
+              placeholder="e.g. 163"
+              min="100" max="220"
+              step="0.1"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="resting_hr">
+              Resting Heart Rate <span class="label-unit">bpm</span>
+            </label>
+            <input
+              class="form-input"
+              type="number"
+              id="resting_hr"
+              name="resting_hr"
+              placeholder="e.g. 72"
+              min="40" max="120"
+              step="0.1"
+              required
+            />
+          </div>
+
+          <div class="form-group full-width">
+            <label class="form-label" for="hemoglobin_g_dl">
+              Hemoglobin <span class="label-unit">g/dL &nbsp;·&nbsp; normal female: 12–15.5</span>
+            </label>
+            <input
+              class="form-input"
+              type="number"
+              id="hemoglobin_g_dl"
+              name="hemoglobin_g_dl"
+              placeholder="e.g. 13.2"
+              min="6" max="18"
+              step="0.1"
+              required
+            />
+          </div>
+
+        </div>
+
+        <!-- Section: Cycle Info -->
+        <p class="form-section-title">🌙 Menstrual Cycle</p>
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label class="form-label" for="last_period_date">
+              Last Period Start Date
+            </label>
+            <input
+              class="form-input"
+              type="date"
+              id="last_period_date"
+              name="last_period_date"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cycle_length">
+              Cycle Length <span class="label-unit">days &nbsp;·&nbsp; <span id="cycle_val">28</span></span>
+            </label>
+            <div class="form-input-range range-row">
+              <input
+                type="range"
+                id="cycle_length"
+                name="cycle_length"
+                min="21" max="35"
+                value="28"
+              />
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Privacy note -->
+        <p style="font-size:0.75rem; color:var(--clr-text-faint); margin-bottom: var(--space-xl); line-height:1.5;">
+          🔒 Your data is sent only to the FemFit API and is never stored.
+          This tool is for informational purposes only and does not constitute medical advice.
+        </p>
+
+        <!-- Submit -->
+        <button type="submit" class="btn-submit" id="submit-btn">
+          <span class="btn-text">Analyse My Metrics &nbsp;→</span>
+          <span class="spinner"></span>
+        </button>
+
+      </form>
+
+      <!-- Stats strip -->
+      <div style="display:flex; justify-content:center; gap:2.5rem; margin-top:2rem; flex-wrap:wrap;">
+        <div style="text-align:center;">
+          <div style="font-size:1.5rem; font-weight:800; background:var(--grad-brand); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">37.8%</div>
+          <div style="font-size:0.75rem; color:var(--clr-text-faint);">BMR error reduction</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:1.5rem; font-weight:800; background:var(--grad-brand); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">71.2%</div>
+          <div style="font-size:0.75rem; color:var(--clr-text-faint);">Calorie bias corrected</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:1.5rem; font-weight:800; background:var(--grad-brand); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">1,263</div>
+          <div style="font-size:0.75rem; color:var(--clr-text-faint);">Women in training data</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:1.5rem; font-weight:800; background:var(--grad-brand); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">0.97</div>
+          <div style="font-size:0.75rem; color:var(--clr-text-faint);">XGBoost R² score</div>
+        </div>
+      </div>
+
+    </main>
+
+  </div><!-- /.page-wrapper -->
+
+  <script src="app.js"></script>
+</body>
+</html>

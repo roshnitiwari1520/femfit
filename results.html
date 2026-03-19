@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FemFit Results — See how your wearable's standard metrics compare to female-calibrated predictions." />
+  <title>FemFit — Your Results</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💜</text></svg>" />
+</head>
+<body>
+
+  <!-- Background ambience -->
+  <div class="bg-ambience" aria-hidden="true"></div>
+
+  <div class="page-wrapper">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <a class="navbar-logo" href="index.html">
+        <div class="logo-icon">💜</div>
+        <span class="logo-text">FemFit</span>
+      </a>
+      <span class="navbar-tagline">Your personalised results</span>
+    </nav>
+
+    <!-- Page hero -->
+    <header class="hero" style="padding-bottom: var(--space-lg);">
+      <div class="hero-badge">💜 Analysis Complete</div>
+      <h1 class="hero-title" style="font-size:clamp(1.8rem,4vw,2.8rem);">
+        Here's what your wearable<br />
+        <span class="gradient-text">gets wrong about you</span>
+      </h1>
+      <p class="hero-subtitle" style="font-size:0.95rem;">
+        Results are phase-adjusted, hemoglobin-corrected, and powered by an XGBoost model trained on 1,263 women.
+      </p>
+    </header>
+
+    <!-- Results root: populated by app.js -->
+    <main class="results-container" id="results-root">
+
+      <!-- Loading skeleton shown before JS runs -->
+      <div id="loading-skeleton" style="animation: fade-in-up 0.3s ease both;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+          <div class="skeleton" style="height:90px; border-radius:20px;"></div>
+          <div class="skeleton" style="height:90px; border-radius:20px;"></div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+          <div class="skeleton" style="height:130px; border-radius:20px;"></div>
+          <div class="skeleton" style="height:130px; border-radius:20px;"></div>
+          <div class="skeleton" style="height:130px; border-radius:20px;"></div>
+          <div class="skeleton" style="height:130px; border-radius:20px;"></div>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1rem;">
+          <div class="skeleton" style="height:110px; border-radius:20px;"></div>
+          <div class="skeleton" style="height:110px; border-radius:20px;"></div>
+          <div class="skeleton" style="height:110px; border-radius:20px;"></div>
+        </div>
+      </div>
+
+    </main>
+
+  </div><!-- /.page-wrapper -->
+
+  <script src="app.js"></script>
+  <script>
+    // Remove skeleton once app.js populates results-root
+    document.addEventListener('DOMContentLoaded', () => {
+      const skeleton = document.getElementById('loading-skeleton');
+      if (skeleton) {
+        // Give app.js one tick to write results
+        requestAnimationFrame(() => {
+          if (skeleton.parentNode) skeleton.remove();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
